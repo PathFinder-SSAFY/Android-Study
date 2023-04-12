@@ -38,41 +38,44 @@ fun MyApp() {
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFF546E7A)
     ) {
+        var moneyCounter by remember {
+            mutableStateOf(0)
+        }
+
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "$100", style = TextStyle(
+                text = "$$moneyCounter", style = TextStyle(
                     color = Color.White,
                     fontSize = 39.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
             Spacer(modifier = Modifier.height(130.dp))
-            CreateCircle()
+            CreateCircle(moneyCounter) { newValue ->
+                moneyCounter = newValue + 1
+            }
         }
     }
 }
 
-@Preview
+//@Preview
 @Composable
-fun CreateCircle() {
-    var moneyCounter by remember {
-        mutableStateOf(0)
-    }
+fun CreateCircle(moneyCounter: Int = 0, updateMoneyCounter: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .padding(3.dp)
             .size(105.dp)
             .clickable {
-                       moneyCounter += 1
+                updateMoneyCounter(moneyCounter + 1)
             },
         shape = CircleShape,
         elevation = 4.dp
     ) {
         Box(contentAlignment = Alignment.Center) {
-            Text(text = "Tap")
+            Text(text = "Tap $moneyCounter")
         }
     }
 }
