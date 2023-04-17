@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "ComposePractice"
 include ':app'
 include ':tip_calculator'
+include ':google_examples'
+include ':movie_app'
